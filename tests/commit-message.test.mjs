@@ -85,4 +85,21 @@ assert.throws(
 	/Unknown commit message profile: missing/,
 );
 
+const fixtureCases = [
+	['added-only', '[ADD] 📝 노트 추가'],
+	['docs-only', '[DOCS] 📚 문서 수정'],
+	['deleted-only', '[REMOVE] 🔥 노트 삭제'],
+	['renamed-only', '[RENAME] 🚚 노트 이름변경'],
+	['mixed-with-metadata', '[UPDATE] 🔄 vault 동기화'],
+];
+
+for (const [fixtureName, expectedSubject] of fixtureCases) {
+	const fixture = JSON.parse(
+		await import('node:fs/promises').then((fs) =>
+			fs.readFile(new URL(`../fixtures/${fixtureName}.json`, import.meta.url), 'utf8')
+		),
+	);
+	assert.equal(firstLine(buildCommitMessage(fixture.status, fixture.metadata)), expectedSubject);
+}
+
 console.log('commit-message tests passed');

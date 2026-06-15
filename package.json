@@ -5,6 +5,8 @@
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
+		"testbox": "node scripts/testbox.mjs",
+		"test": "node tests/commit-message.test.mjs && node tests/testbox.test.mjs",
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
 		"version": "node version-bump.mjs && git add manifest.json versions.json"
 	},

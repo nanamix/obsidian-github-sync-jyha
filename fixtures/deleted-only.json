@@ -1,0 +1,12 @@
+{
+  "name": "deleted-only",
+  "description": "Deleted note only",
+  "status": {
+    "created": [],
+    "deleted": ["old-note.md"],
+    "modified": [],
+    "not_added": [],
+    "renamed": []
+  },
+  "metadata": {}
+}

@@ -1,0 +1,16 @@
+{
+  "name": "mixed-with-metadata",
+  "description": "Mixed changes with vault and network metadata",
+  "status": {
+    "created": ["new.md"],
+    "deleted": ["old.md"],
+    "modified": ["today.md"],
+    "not_added": [],
+    "renamed": []
+  },
+  "metadata": {
+    "vaultName": "example-vault",
+    "publicIp": "203.0.113.10",
+    "privateIps": ["192.168.0.10", "10.0.0.5"]
+  }
+}

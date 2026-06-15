@@ -1,0 +1,15 @@
+{
+  "name": "docs-only",
+  "description": "Markdown and Canvas files modified",
+  "status": {
+    "created": [],
+    "deleted": [],
+    "modified": [
+      "0000_JOURNAL/2026/06/today.md",
+      "3000_AREAS/example.canvas"
+    ],
+    "not_added": [],
+    "renamed": []
+  },
+  "metadata": {}
+}

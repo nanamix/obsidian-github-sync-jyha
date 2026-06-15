@@ -1,0 +1,17 @@
+{
+  "name": "renamed-only",
+  "description": "Renamed note only",
+  "status": {
+    "created": [],
+    "deleted": [],
+    "modified": [],
+    "not_added": [],
+    "renamed": [
+      {
+        "from": "old-name.md",
+        "to": "new-name.md"
+      }
+    ]
+  },
+  "metadata": {}
+}

@@ -1,0 +1,12 @@
+{
+  "name": "added-only",
+  "description": "New Markdown note only",
+  "status": {
+    "created": [],
+    "deleted": [],
+    "modified": [],
+    "not_added": ["0000_JOURNAL/2026/06/new-note.md"],
+    "renamed": []
+  },
+  "metadata": {}
+}

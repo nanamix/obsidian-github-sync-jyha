@@ -18,6 +18,43 @@
 
 Simple plugin that allows you to sync your vault to a personal GitHub repo for **syncing across devices**.
 
+## Jyha fork
+
+This fork keeps the original sync flow and changes automatic commit messages to jyha's convention:
+
+- `[ADD] 📝 노트 추가`
+- `[UPDATE] 🔄 vault 변경`
+- `[REMOVE] 🔥 노트 삭제`
+- `[RENAME] 🚚 노트 이름변경`
+- `[DOCS] 📚 문서 수정`
+
+When multiple change types are included, the commit subject stays short and the body adds Korean bullet counts.
+
+## Commit Message Testbox
+
+This fork includes a local Testbox for previewing commit messages without committing anything.
+
+Run all fixtures:
+
+```bash
+npm run testbox
+```
+
+Run one fixture:
+
+```bash
+npm run testbox -- --fixture mixed-with-metadata
+```
+
+The default profile is `jyha-korean`.
+
+Testbox rules:
+
+- It reads JSON fixtures from `fixtures/`.
+- It calls the same `buildCommitMessage` core used by sync.
+- It never stages, commits, pulls, or pushes.
+- It is safe to run before changing a real vault.
+
 ## Highlights
 - Sync your vault with a single ribbon action.
 - Reduce notice noise with configurable notice levels.
@@ -85,4 +122,3 @@ The Node API used by this plugin works with any remote host, but I use GitHub so
 Mobile support could come in the future depending on how much I need it myself.
 
 Follow my stuff at https://kevin.gd/
-

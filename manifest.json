@@ -1,10 +1,10 @@
 {
-	"id": "github-sync",
-	"name": "GitHub Sync",
-	"version": "1.0.7",
+	"id": "github-sync-jyha",
+	"name": "GitHub Sync Jyha",
+	"version": "1.0.9",
 	"minAppVersion": "0.15.0",
-	"description": "Sync vault to personal GitHub.",
-	"author": "Kevin Chin",
-	"authorUrl": "https://kevin.gd/",
+	"description": "Sync vault to personal GitHub with jyha commit convention.",
+	"author": "Kevin Chin, jyha",
+	"authorUrl": "https://github.com/nanamix",
 	"isDesktopOnly": true
 }

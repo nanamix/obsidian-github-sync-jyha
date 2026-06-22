@@ -2,6 +2,8 @@ import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Set
 import { simpleGit, SimpleGit, CleanOptions, SimpleGitOptions } from 'simple-git';
 import { setIntervalAsync, clearIntervalAsync } from 'set-interval-async';
 
+const { buildCommitMessage } = require('./commit-message');
+
 let simpleGitOptions: Partial<SimpleGitOptions>;
 let git: SimpleGit;
 
@@ -28,6 +30,55 @@ const DEFAULT_SETTINGS: GHSyncSettings = {
 	checkStatusOnLoad: true,
 	noticeLevel: 'ALL',
 	showSyncSuccessNotice: true,
+}
+
+async function getPublicIp(): Promise<string | undefined> {
+	const https = require('https');
+
+	return await new Promise((resolve) => {
+		const req = https.get('https://api.ipify.org', { timeout: 2500 }, (res: any) => {
+			let body = '';
+			res.setEncoding('utf8');
+			res.on('data', (chunk: string) => {
+				body += chunk;
+			});
+			res.on('end', () => {
+				const ip = body.trim();
+				resolve(ip || undefined);
+			});
+		});
+
+		req.on('timeout', () => {
+			req.destroy();
+			resolve(undefined);
+		});
+		req.on('error', () => resolve(undefined));
+	});
+}
+
+function getPrivateIps(): string[] {
+	const os = require('os');
+	const interfaces = os.networkInterfaces();
+	const addresses: string[] = [];
+
+	for (const values of Object.values(interfaces)) {
+		for (const entry of values as any[]) {
+			if (entry.family === 'IPv4' && !entry.internal) {
+				addresses.push(entry.address);
+			}
+		}
+	}
+
+	return addresses;
+}
+
+async function getSyncMetadata(vaultPath: string) {
+	const path = require('path');
+	return {
+		vaultName: path.basename(vaultPath),
+		publicIp: await getPublicIp(),
+		privateIps: getPrivateIps(),
+	};
 }
 
 
@@ -67,18 +118,17 @@ export default class GHSyncPlugin extends Plugin {
 	async SyncNotes()
 	{
 		const remote = this.settings.remoteURL.trim();
+		//@ts-ignore
+		const vaultPath = this.app.vault.adapter.getBasePath();
 
 		simpleGitOptions = {
 			//@ts-ignore
-		    baseDir: this.app.vault.adapter.getBasePath(),
+		    baseDir: vaultPath,
 		    binary: this.settings.gitLocation + "git",
 		    maxConcurrentProcesses: 6,
 		    trimmed: false,
 		};
 		git = simpleGit(simpleGitOptions);
-
-		let os = require("os");
-		let hostname = os.hostname();
 
 		let statusResult = await git.status().catch((e) => {
 			this.showNotice("Vault is not a Git repo or git binary cannot be found.", 'ERROR', 10000);
@@ -91,11 +141,10 @@ export default class GHSyncPlugin extends Plugin {
 		//@ts-ignore
 		let clean = statusResult.isClean();
 
-    	let date = new Date();
-    	let msg = hostname + " " + date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + ":" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+		let msg = buildCommitMessage(statusResult, await getSyncMetadata(vaultPath));
 
 		// git add .
-		// git commit -m hostname-date-time
+		// git commit -m jyha convention message
 		if (!clean) {
 			try {
 				await git

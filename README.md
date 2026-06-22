@@ -1,3 +1,8 @@
+### Changelog 1.0.9
+- Added local commit message Testbox for safely previewing jyha Korean commit convention output
+- Split commit message rules into reusable profile modules
+- Added fixtures/tests/docs for the Testbox workflow
+
 ### Changelog 1.0.7
 - Simplified the sync success notice so successful runs show a shorter confirmation message.
 
@@ -27,6 +32,14 @@ This fork keeps the original sync flow and changes automatic commit messages to 
 - `[REMOVE] 🔥 노트 삭제`
 - `[RENAME] 🚚 노트 이름변경`
 - `[DOCS] 📚 문서 수정`
+
+Release repo for this fork:
+
+- `https://github.com/nanamix/obsidian-github-sync-jyha`
+
+Author page in `manifest.json` points to:
+
+- `https://github.com/nanamix`
 
 When multiple change types are included, the commit subject stays short and the body adds Korean bullet counts.
 
@@ -121,4 +134,4 @@ The Node API used by this plugin works with any remote host, but I use GitHub so
 
 Mobile support could come in the future depending on how much I need it myself.
 
-Follow my stuff at https://kevin.gd/
+Original upstream: https://github.com/kevinmkchin/Obsidian-GitHub-Sync

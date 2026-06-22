@@ -1,13 +1,13 @@
 {
-	"name": "github-sync",
-	"version": "1.0.7",
-	"description": "Sync vault to personal GitHub.",
+	"name": "github-sync-jyha",
+	"version": "1.0.9",
+	"description": "Sync vault to personal GitHub with jyha commit convention.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
-		"testbox": "node scripts/testbox.mjs",
-		"test": "node tests/commit-message.test.mjs && node tests/testbox.test.mjs",
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+		"test": "node tests/commit-message.test.mjs && node tests/testbox.test.mjs",
+		"testbox": "node scripts/testbox.mjs",
 		"version": "node version-bump.mjs && git add manifest.json versions.json"
 	},
 	"keywords": [],
